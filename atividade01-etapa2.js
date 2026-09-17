@@ -1,5 +1,5 @@
 // etapa 2
-escudo:100
+
 let nomeItem = prompt('Digite o nome do item:').toLowerCase();
 
 let precoItem = itens[nomeItem];

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classificação de Itens</title>
+</head>
+<body>
+
+    <h1>Classificação de Itens</h1>
+    <p>Abra o console do navegador para visualizar os resultados.</p>
+
+    <script>
+        // Etapa 1
+
+        let itens = {
+            espada: 50,
+            escudo: 300,
+            arco: 1000,
+            armadura: 5000,
+            cajado: 150000
+        };
+
+        // Etapa 2
+
+        let nomeItem = prompt('Digite o nome do item:');
+
+        if (nomeItem === null) {
+            console.log('Operação cancelada.');
+
+        } else {
+            nomeItem = nomeItem.toLowerCase();
+
+            while (itens[nomeItem] === undefined) {
+                console.log('Este item não é válido! Favor digite outro!');
+
+                nomeItem = prompt('Digite outro item:');
+
+                if (nomeItem === null) {
+                    console.log('Operação cancelada.');
+                    break;
+                }
+
+                nomeItem = nomeItem.toLowerCase();
+            }
+
+            if (nomeItem !== null && itens[nomeItem] !== undefined) {
+                let precoItem = itens[nomeItem];
+                let raridadeItem;
+
+                if (precoItem <= 0) {
+                    console.log('Erro: o valor do item deve ser maior que 0.');
+
+                } else if (precoItem <= 100) {
+                    raridadeItem = 'comum';
+                    console.log(`Este item ${nomeItem} é comum.`);
+
+                } else if (precoItem <= 500) {
+                    raridadeItem = 'raro';
+                    console.log(`Este item ${nomeItem} é raro.`);
+
+                } else if (precoItem <= 5000) {
+                    raridadeItem = 'lendário';
+                    console.log(`Este item ${nomeItem} é lendário.`);
+
+                } else if (precoItem <= 100000) {
+                    raridadeItem = 'épico';
+                    console.log(`Este item ${nomeItem} é épico.`);
+
+                } else {
+                    raridadeItem = 'Deus';
+                    console.log(`Este item ${nomeItem} é Deus.`);
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

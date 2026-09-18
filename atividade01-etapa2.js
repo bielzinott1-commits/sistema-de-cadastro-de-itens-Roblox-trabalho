@@ -10,13 +10,25 @@ if (precoItem < 100) {
 }
 
 else if (precoItem >= 100) {
-    raridadeItem = 'raro' ;
-    console.log(`Este item ${nomeItem} é raro`);
+    const descricaoItem =
+    `==SOBRE O ITEM==
+    Nome: ${nomeItem}
+    Preço: ${precoItem}
+    Raridade: ${raridadeItem}
+    Estoque: ${quantidadeEstoque}`;
+
+    console.log(descricaoItem);
 }
 
 else if (precoItem >= 500) {
-    raridadeItem = 'lendario' ;
-    console.log(`Este item ${nomeItem} é lendario`);
+    const descricaoItem =
+    `==SOBRE O ITEM==
+    Nome: ${nomeItem}
+    Preço: ${precoItem}
+    Raridade: ${raridadeItem}
+    Estoque: ${quantidadeEstoque}`;
+    
+    console.log(descricaoItem);
 }
 
 else {

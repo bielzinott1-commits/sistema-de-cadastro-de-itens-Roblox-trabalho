@@ -1,79 +1,232 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classificação de Itens</title>
+
+    <title>Consulta de Itens</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            color: #00ff88;
+        }
+
+        input {
+            padding: 12px;
+            width: 250px;
+            border-radius: 8px;
+            border: none;
+            margin: 10px;
+        }
+
+        button {
+            padding: 12px 25px;
+            background-color: #00ff88;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #00cc6a;
+        }
+
+        #resultado {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            max-width: 400px;
+            text-align: left;
+            display: none;
+        }
+
+        .erro {
+            color: #ff4444;
+        }
+
+        .comum {
+            color: #b0b0b0;
+        }
+
+        .incomum {
+            color: #1eff00;
+        }
+
+        .raro {
+            color: #007bff;
+        }
+
+        .epico {
+            color: #a020f0;
+        }
+    </style>
+
 </head>
+
 <body>
 
-    <h1>Classificação de Itens</h1>
-    <p>Abra o console do navegador para visualizar os resultados.</p>
+    <h1>Consulta de Itens</h1>
+
+    <p>Digite o nome de um item para consultar suas informações.</p>
+
+    <input type="text" id="nomeItem" placeholder="Ex: Espada de Gelo">
+
+    <br>
+
+    <button onclick="consultarItem()">Consultar Item</button>
+
+    <div id="resultado"></div>
 
     <script>
-        // Etapa 1
 
-        let itens = {
-            espada: 50,
-            escudo: 300,
-            arco: 1000,
-            armadura: 5000,
-            cajado: 150000
+        // Lista de itens com preços e estoques individuais
+        const itens = {
+
+            "espada de gelo": {
+                preco: 500,
+                estoque: 37
+            },
+
+            "espada de fogo": {
+                preco: 750,
+                estoque: 20
+            },
+
+            "arco de madeira": {
+                preco: 50,
+                estoque: 100
+            },
+
+            "machado de ferro": {
+                preco: 150,
+                estoque: 45
+            },
+
+            "cajado mágico": {
+                preco: 1000,
+                estoque: 10
+            }
+
         };
 
-        // Etapa 2
+        // Função para consultar o item
+        function consultarItem() {
 
-        let nomeItem = prompt('Digite o nome do item:');
+            // Captura o nome digitado
+            let nomeItem = document
+                .getElementById("nomeItem")
+                .value
+                .toLowerCase()
+                .trim();
 
-        if (nomeItem === null) {
-            console.log('Operação cancelada.');
+            const resultado = document.getElementById("resultado");
 
-        } else {
-            nomeItem = nomeItem.toLowerCase();
+            // Verifica se o campo está vazio
+            if (nomeItem === "") {
 
-            while (itens[nomeItem] === undefined) {
-                console.log('Este item não é válido! Favor digite outro!');
+                resultado.style.display = "block";
 
-                nomeItem = prompt('Digite outro item:');
+                resultado.innerHTML =
+                    `<p class="erro">Digite o nome de um item!</p>`;
 
-                if (nomeItem === null) {
-                    console.log('Operação cancelada.');
-                    break;
-                }
-
-                nomeItem = nomeItem.toLowerCase();
+                return;
             }
 
-            if (nomeItem !== null && itens[nomeItem] !== undefined) {
-                let precoItem = itens[nomeItem];
-                let raridadeItem;
+            // Verifica se o item existe
+            if (!(nomeItem in itens)) {
 
-                if (precoItem <= 0) {
-                    console.log('Erro: o valor do item deve ser maior que 0.');
+                resultado.style.display = "block";
 
-                } else if (precoItem <= 100) {
-                    raridadeItem = 'comum';
-                    console.log(`Este item ${nomeItem} é comum.`);
+                resultado.innerHTML =
+                    `<p class="erro">Erro: item não encontrado!</p>`;
 
-                } else if (precoItem <= 500) {
-                    raridadeItem = 'raro';
-                    console.log(`Este item ${nomeItem} é raro.`);
-
-                } else if (precoItem <= 5000) {
-                    raridadeItem = 'lendário';
-                    console.log(`Este item ${nomeItem} é lendário.`);
-
-                } else if (precoItem <= 100000) {
-                    raridadeItem = 'épico';
-                    console.log(`Este item ${nomeItem} é épico.`);
-
-                } else {
-                    raridadeItem = 'Deus';
-                    console.log(`Este item ${nomeItem} é Deus.`);
-                }
+                return;
             }
+
+            // Obtém os dados do item
+            let precoItem = itens[nomeItem].preco;
+            let quantidadeEstoque = itens[nomeItem].estoque;
+
+            // Verifica se o preço é válido
+            if (precoItem <= 0) {
+
+                resultado.style.display = "block";
+
+                resultado.innerHTML =
+                    `<p class="erro">
+                        Erro: o preço do item não pode ser 0 ou menor!
+                    </p>`;
+
+                return;
+            }
+
+            // Define a raridade
+            let raridadeItem;
+            let classeRaridade;
+
+            if (precoItem < 100) {
+
+                raridadeItem = "Comum";
+                classeRaridade = "comum";
+
+            } else if (precoItem < 500) {
+
+                raridadeItem = "Incomum";
+                classeRaridade = "incomum";
+
+            } else if (precoItem < 1000) {
+
+                raridadeItem = "Raro";
+                classeRaridade = "raro";
+
+            } else {
+
+                raridadeItem = "Épico";
+                classeRaridade = "epico";
+
+            }
+
+            // Monta a descrição do item
+            const descricaoItem = `
+                <h2>== SOBRE O ITEM ==</h2>
+
+                <p><strong>Nome:</strong> ${nomeItem}</p>
+
+                <p><strong>Preço:</strong> R$ ${precoItem}</p>
+
+                <p>
+                    <strong>Raridade:</strong>
+                    <span class="${classeRaridade}">
+                        ${raridadeItem}
+                    </span>
+                </p>
+
+                <p>
+                    <strong>Estoque:</strong>
+                    ${quantidadeEstoque} unidades
+                </p>
+            `;
+
+            // Exibe a descrição
+            resultado.style.display = "block";
+
+            resultado.innerHTML = descricaoItem;
+
         }
+
     </script>
 
 </body>
+
 </html>

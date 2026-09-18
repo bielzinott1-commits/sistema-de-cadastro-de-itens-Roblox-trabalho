@@ -1,49 +1,78 @@
-// Etapa 1
+// Lista de itens com preços e estoques individuais
+const itens = {
+    "espada de gelo": {
+        preco: 500,
+        estoque: 37
+    },
 
-let itens = {
-    espada: 50,
-    escudo: 300,
-    arco: 1000,
-    armadura: 5000,
-    cajado: 150000
+    "espada de fogo": {
+        preco: 750,
+        estoque: 20
+    },
+
+    "arco de madeira": {
+        preco: 50,
+        estoque: 100
+    },
+
+    "machado de ferro": {
+        preco: 150,
+        estoque: 45
+    },
+
+    "cajado mágico": {
+        preco: 1000,
+        estoque: 10
+    }
 };
 
-// Etapa 2
+// Etapa 1: Escolha do item
+let nomeItem = prompt("Digite o nome do item:").toLowerCase().trim();
 
-let nomeItem = prompt('Digite o nome do item:').toLowerCase();
+// Verifica se o item existe
+if (!(nomeItem in itens)) {
 
-while (itens[nomeItem] === undefined) {
-    console.log('Este item não é válido! Favor digite outro!');
-    nomeItem = prompt('Digite outro item:').toLowerCase();
-}
-
-let precoItem = itens[nomeItem];
-let raridadeItem;
-
-if (precoItem === undefined) {
-    console.log('Erro: item não encontrado.');
-
-} else if (precoItem <= 0) {
-    console.log('Erro: o valor do item deve ser maior que 0.');
-
-} else if (precoItem <= 100) {
-    raridadeItem = 'comum';
-    console.log(`Este item ${nomeItem} é comum.`);
-
-} else if (precoItem <= 500) {
-    raridadeItem = 'raro';
-    console.log(`Este item ${nomeItem} é raro.`);
-
-} else if (precoItem <= 5000) {
-    raridadeItem = 'lendário';
-    console.log(`Este item ${nomeItem} é lendário.`);
-
-} else if (precoItem <=100000){
-    raridadeItem = 'épico';
-    console.log(`Este item ${nomeItem} é épico.`);
+    console.log("Erro: item não encontrado!");
 
 } else {
-    raridadeItem = 'Deus';
-    console.log(`Este item ${nomeItem} é Deus.`);
 
+    // Obtém o preço e o estoque do item
+    let precoItem = itens[nomeItem].preco;
+    let quantidadeEstoque = itens[nomeItem].estoque;
+
+    // Verifica se o preço é válido
+    if (precoItem <= 0) {
+
+        console.log("Erro: o preço do item não pode ser 0 ou menor!");
+
+    } else {
+
+        // Define a raridade do item
+        let raridadeItem;
+
+        if (precoItem < 100) {
+            raridadeItem = "Comum";
+
+        } else if (precoItem < 500) {
+            raridadeItem = "Incomum";
+
+        } else if (precoItem < 1000) {
+            raridadeItem = "Raro";
+
+        } else {
+            raridadeItem = "Épico";
+        }
+
+        // Monta a descrição do item
+        const descricaoItem =
+`== SOBRE O ITEM ==
+
+Nome: ${nomeItem}
+Preço: R$ ${precoItem}
+Raridade: ${raridadeItem}
+Estoque: ${quantidadeEstoque} unidades`;
+
+        // Exibe a descrição no console
+        console.log(descricaoItem);
+    }
 }

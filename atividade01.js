@@ -21,9 +21,24 @@ const itens = {
         estoque: 45
     },
 
-    "ggg": {
-        preco: 1000,
-        estoque: 10
+    "arquiles sagrada": {
+        preco: 10000,
+        estoque: 7
+    },
+
+    "luke skarwars": {
+        preco: 100000,
+        estoque: 12
+    },
+
+    "espada de kratos": {
+        preco: 1000000,
+        estoque: 1
+    },
+
+    "proibida": {
+        preco: 1000000,
+        estoque: 4
     }
 
 };

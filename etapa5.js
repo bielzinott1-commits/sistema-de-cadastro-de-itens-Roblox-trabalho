@@ -39,3 +39,5 @@ function menuPrincipal() {
 }
 
 menuPrincipal();
+
+const catalogo = [ 'katana de grogor' , 'machado sagrado' , 'reliquia sombria' , 'lança de zeus' , 'espada de kratos'];

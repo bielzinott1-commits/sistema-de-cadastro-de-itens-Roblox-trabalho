@@ -115,26 +115,10 @@ function cadastrarItens() {
 // CONSULTAR ITEM
 // ===============================
 
-function consultarItem() {
-    const catalogo = Object.entries(itens);
-    const linhas = ["===== CATÁLOGO DE ITENS ====="];
-
-    catalogo.forEach(([nome, dados], indice) => {
-        const disponibilidade = dados.estoque > 0 ? "DISPONÍVEL" : "INDISPONÍVEL";
-        const raridade = obterRaridade(dados.preco);
-
-        linhas.push(
-            `\n${indice + 1}. ${nome}`,
-            `   Disponibilidade: ${disponibilidade}`,
-            `   Preço: ${formatarMoeda(dados.preco)}`,
-            `   Estoque: ${dados.estoque} unidade(s)`,
-            `   Raridade: ${raridade}`,
-            `   --------------------------------`
-        );
-    });
-
-    console.log(linhas.join("\n"));
-}
+    let catalogo = [ 'katana de grogor' , 'machado sagrado' , 'reliquia sombria' , 'lança de zeus' , 'espada de kratos'];{
+    
+        console.log(linhas.join("\n"));
+    }
 
 // ===============================
 // COMPRAR ITEM

@@ -1,29 +1,37 @@
-const prompt = require('prompt-sync')();
-const itens = {
+// etapa 2 operadores e condicionais 
 
-    "espada de gelo": {
-        preco: 500,
-        estoque: 37
-    },
+let nomeItem = prompt('Digite o nome do item:').toLowerCase();
 
-    "espada de fogo": {
-        preco: 750,
-        estoque: 20
-    },
+let precoItem = itens[nomeItem];
 
-    "arco de madeira": {
-        preco: 50,
-        estoque: 100
-    },
+if (precoItem < 100) {
+    raridadeItem = 'comum' ;
+    console.log(`Este item ${nomeItem} é comum`);
+}
 
-    "machado de ferro": {
-        preco: 150,
-        estoque: 45
-    },
+else if (precoItem >= 100) {
+    const descricaoItem =
+    `==SOBRE O ITEM==
+    Nome: ${nomeItem}
+    Preço: ${precoItem}
+    Raridade: ${raridadeItem}
+    Estoque: ${quantidadeEstoque}`;
 
-    "cajado mágico": {
-        preco: 1000,
-        estoque: 10
-    }
+    console.log(descricaoItem);
+}
 
-};
+else if (precoItem >= 500) {
+    const descricaoItem =
+    `==SOBRE O ITEM==
+    Nome: ${nomeItem}
+    Preço: ${precoItem}
+    Raridade: ${raridadeItem}
+    Estoque: ${quantidadeEstoque}`;
+    
+    console.log(descricaoItem);
+}
+
+else {
+    raridadeItem = 'épico' ;
+    console.log(`Este item ${nomeItem} é épico`);
+}

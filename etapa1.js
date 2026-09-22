@@ -1,3 +1,4 @@
+//etapa 1 ficha de itens
 const prompt = require('prompt-sync')();
 const itens = {
 

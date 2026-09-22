@@ -28,10 +28,7 @@ const itens = {
 
 };
 
-
-// ===============================
 // FUNÇÃO PARA OBTER A RARIDADE
-// ===============================
 
 function obterRaridade(preco) {
 
@@ -50,10 +47,7 @@ function obterRaridade(preco) {
 
 }
 
-
-// ===============================
 // FUNÇÃO PARA CADASTRAR ITENS
-// ===============================
 
 function cadastrarItens() {
 
@@ -185,10 +179,8 @@ function cadastrarItens() {
 
 }
 
-
-// ===============================
 // FUNÇÃO PARA CONSULTAR ITEM
-// ===============================
+
 
     function consultarItem() {
 
@@ -222,9 +214,7 @@ function cadastrarItens() {
         alert(lista);
     }
 
-// ===============================
 // FUNÇÃO PARA COMPRAR ITENS
-// ===============================
 
 function comprarItem() {
 
@@ -397,10 +387,7 @@ Estoque restante: ${itens[nomeItem].estoque} unidade(s)`;
 
 }
 
-
-// ===============================
 // MENU PRINCIPAL
-// ===============================
 
 const ACOES = {
     "1": cadastrarItens,

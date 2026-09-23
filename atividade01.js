@@ -1,5 +1,5 @@
 const prompt = require('prompt-sync')();
-const itens = {
+let itens = {
 
     "katana de grogor": {
         preco: 500,
@@ -47,13 +47,13 @@ const itens = {
 
 function obterRaridade(preco) {
 
-    if (preco < 100) {
+    if (preco <= 100) {
         return "Comum";
 
-    } else if (preco < 500) {
+    } else if (preco <= 500) {
         return "Incomum";
 
-    } else if (preco < 1000) {
+    } else if (preco <= 1000) {
         return "Raro";
 
     } else {
@@ -188,9 +188,7 @@ function cadastrarItens() {
     }
 
 
-    alert("Cadastro finalizado!");
-
-    console.log("\n===== CADASTRO FINALIZADO =====");
+    console.log("Cadastro finalizado!");
 
 }
 
@@ -199,7 +197,7 @@ function cadastrarItens() {
 
     function consultarItem() {
 
-        const catalogo = Object.entries(itens);
+        let catalogo = Object.entries(itens);
 
         let lista = "===== CATÁLOGO DE ITENS =====\n\n";
 
@@ -277,7 +275,7 @@ function comprarItem() {
     do {
 
         quantidade = Number(
-            prompt(
+            console.log(
                 `Quantas unidades de "${nomeItem}" você deseja comprar?\n\n` +
                 `Estoque disponível: ${itens[nomeItem].estoque}`
             )
@@ -329,7 +327,7 @@ function comprarItem() {
     do {
 
         saldo = Number(
-            prompt(
+            console.log(
                 `Valor total da compra: R$ ${valorTotal.toFixed(2)}\n\n` +
                 "Digite o seu saldo disponível:\n"
             )
@@ -427,7 +425,7 @@ function menuPrincipal() {
             break;
         }
 
-        const acao = ACOES[escolha];
+        let acao = ACOES[escolha];
 
         if (!acao) {
             console.log("Opção inválida! Digite 1, 2, 3 ou 4.");

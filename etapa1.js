@@ -1,30 +1,34 @@
-//etapa 1 ficha de itens
-const prompt = require('prompt-sync')();
-const itens = {
+let nomeItem = "Espada de Gelo";
+let precoItem = 250;
+let raridadeItem;
+let quantidadeEstoque = 12;
+    
+if (precoItem <= 100) {
+    raridadeItem = "comum",
+    console.log ("este item é comum");
 
-    "espada de gelo": {
-        preco: 500,
-        estoque: 37
-    },
+    } else if (precoItem <= 500) {
+        raridadeItem = "incomum";
+        console.log ("este item é incomum");
 
-    "espada de fogo": {
-        preco: 750,
-        estoque: 20
-    },
+    } else if (precoItem <= 1000) {
+        raridadeItem = "raro";
+        console.log ("este item é raro");
 
-    "arco de madeira": {
-        preco: 50,
-        estoque: 100
-    },
+    } else if (precoItem <= 100000) {
+        raridadeItem = "épico";
+        console.log ("este item é épico");
 
-    "machado de ferro": {
-        preco: 150,
-        estoque: 45
-    },
+    } else {
+        raridadeItem = "Nivel Deus";
+        console.log ("este item é nivel Deus");
+}
 
-    "cajado mágico": {
-        preco: 1000,
-        estoque: 10
-    }
-
-};
+console.log(`
+    === FICHA DO ITEM ===
+    Nome: ${nomeItem}
+    Preço: ${precoItem}
+    Raridade: ${raridadeItem}
+    Estoque: ${quantidadeEstoque}
+    unidades
+    `);

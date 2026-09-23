@@ -1,37 +1,93 @@
-// etapa 2 operadores e condicionais 
+const prompt = require('prompt-sync')();
 
-let nomeItem = prompt('Digite o nome do item:').toLowerCase();
+let itens = {
 
-let precoItem = itens[nomeItem];
+    "katana de grogor": {
+        preco: 500,
+        estoque: 37
+    },
 
-if (precoItem < 100) {
-    raridadeItem = 'comum' ;
-    console.log(`Este item ${nomeItem} é comum`);
+    "machado sagrado": {
+        preco: 750,
+        estoque: 20
+    },
+
+    "reliquia sombria": {
+        preco: 50,
+        estoque: 100
+    },
+
+    "lança de zeus": {
+        preco: 150,
+        estoque: 45
+    },
+
+    "arquiles sagrada": {
+        preco: 10000,
+        estoque: 7
+    },
+
+    "luke skarwars": {
+        preco: 100000,
+        estoque: 12
+    },
+
+    "espada de kratos": {
+        preco: 1000000,
+        estoque: 1
+    },
+
+    "proibida": {
+        preco: 1000000,
+        estoque: 4
+    }
+
+};
+
+
+function obterRaridade(preco) {
+
+    if (preco <= 100) {
+        return "Comum";
+
+    } else if (preco <= 500) {
+        return "Incomum";
+
+    } else if (preco <= 1000) {
+        return "Raro";
+
+    } else if (preco <= 10000) {
+        return "Épico";
+
+    }else{
+        return "Nivel Deus"
+    }
+
 }
 
-else if (precoItem >= 100) {
-    const descricaoItem =
-    `==SOBRE O ITEM==
-    Nome: ${nomeItem}
-    Preço: ${precoItem}
-    Raridade: ${raridadeItem}
-    Estoque: ${quantidadeEstoque}`;
 
-    console.log(descricaoItem);
-}
+let nomeItem = prompt("Digite o nome do item: ");
 
-else if (precoItem >= 500) {
-    const descricaoItem =
-    `==SOBRE O ITEM==
-    Nome: ${nomeItem}
-    Preço: ${precoItem}
-    Raridade: ${raridadeItem}
-    Estoque: ${quantidadeEstoque}`;
-    
-    console.log(descricaoItem);
-}
+nomeItem = nomeItem.toLowerCase().trim();
 
-else {
-    raridadeItem = 'épico' ;
-    console.log(`Este item ${nomeItem} é épico`);
+
+if (nomeItem in itens) {
+
+    let item = itens[nomeItem];
+
+    let raridade = obterRaridade(item.preco);
+
+    console.log(`
+=== CONFIGURAÇÃO DO ITEM ===
+
+Nome: ${nomeItem}
+Preço: R$ ${item.preco.toFixed(2)}
+Estoque: ${item.estoque} unidade(s)
+Raridade: ${raridade}
+`);
+
+} else {
+
+    console.log("Item não encontrado!");
+
 }

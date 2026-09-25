@@ -1,4 +1,11 @@
 //etapa 4 vender itens 
+let itens={
+    "espada":{
+    preco:500,
+    estoque:10
+    }
+}
+
 function comprarItem() {
 
     let nomeItem = prompt(
@@ -57,7 +64,7 @@ function comprarItem() {
             quantidade <= 0
         ) {
 
-            alert(
+            console.log(
                 "Erro! Digite uma quantidade inteira maior que zero."
             );
 
@@ -73,7 +80,7 @@ function comprarItem() {
 
     if (quantidade > itens[nomeItem].estoque) {
 
-        alert(
+        console.log(
             `Estoque insuficiente!\n\n` +
             `Estoque disponível: ${itens[nomeItem].estoque} unidades.`
         );
@@ -106,7 +113,7 @@ function comprarItem() {
 
         if (isNaN(saldo) || saldo < 0) {
 
-            alert(
+            console.log(
                 "Erro! O saldo deve ser um número igual ou maior que zero."
             );
 
@@ -119,7 +126,7 @@ function comprarItem() {
 
     if (saldo < valorTotal) {
 
-        alert(
+        console.log(
             `Compra recusada!\n\n` +
             `Valor da compra: R$ ${valorTotal.toFixed(2)}\n` +
             `Seu saldo: R$ ${saldo.toFixed(2)}\n\n` +
@@ -162,9 +169,6 @@ Saldo inicial: R$ ${saldo.toFixed(2)}
 Saldo restante: R$ ${saldoRestante.toFixed(2)}
 
 Estoque restante: ${itens[nomeItem].estoque} unidade(s)`;
-
-
-    alert(comprovante);
 
     console.log(comprovante);
 

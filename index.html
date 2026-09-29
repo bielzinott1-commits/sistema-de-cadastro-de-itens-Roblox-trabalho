@@ -10,254 +10,547 @@
     <p>Abra o console do navegador com F12 para acompanhar as operações.</p>
 
     <script>
-const prompt = require('prompt-sync')({ sigint: true });
+    const itens = {
 
-let itens = {
-    "katana de grogor": { preco: 500, estoque: 37 },
-    "machado sagrado": { preco: 750, estoque: 20 },
-    "reliquia sombria": { preco: 50, estoque: 100 },
-    "lança de zeus": { preco: 150, estoque: 45 },
-    "arquiles sagrada": { preco: 10000, estoque: 7 },
-    "luke skarwars": { preco: 100000, estoque: 12 },
-    "espada de kratos": { preco: 1000000, estoque: 1 },
-    "proibida": { preco: 1000000, estoque: 4 }
-};
+    "katana de grogor": {
+        preco: 500,
+        estoque: 37
+    },
 
-// ===== FUNÇÕES AUXILIARES =====
+    "machado sagrado": {
+        preco: 750,
+        estoque: 20
+    },
 
-function obterRaridade(preco) {
-    if (preco <= 100) return "Comum";
-    if (preco <= 500) return "Incomum";
-    if (preco <= 1000) return "Raro";
-    return "Épico";
-}
+    "reliquia sombria": {
+        preco: 50,
+        estoque: 100
+    },
 
-// Lê um número repetindo até ser válido. Retorna null se a entrada for cancelada.
-function lerNumero(mensagem, ehValido, mensagemErro) {
-    while (true) {
-        const texto = prompt(mensagem);
+    "lança de zeus": {
+        preco: 150,
+        estoque: 45
+    },
 
-        if (texto === null) return null;
+    "arquiles sagrada": {
+        preco: 10000,
+        estoque: 7
+    },
 
-        const limpo = texto.trim().replace(",", ".");
-        const numero = Number(limpo);
+    "luke skarwars": {
+        preco: 100000,
+        estoque: 12
+    },
 
-        if (limpo !== "" && ehValido(numero)) return numero;
+    "espada de kratos": {
+        preco: 1000000,
+        estoque: 1
+    },
 
-        console.log(mensagemErro);
+    "proibida": {
+        preco: 1000000,
+        estoque: 4
     }
-}
 
-function perguntarSimNao(mensagem) {
-    const resposta = prompt(mensagem);
-    if (resposta === null) return false;
+    };
 
-    const r = resposta.toLowerCase().trim();
-    return r === "s" || r === "sim";
-}
+    function obterRaridade(preco) {
 
-// ===== CADASTRAR ITENS =====
+    if (preco < 100) {
+        return "Comum";
 
-function cadastrarItens() {
-    const quantidade = lerNumero(
-        "Quantos itens você deseja cadastrar? (1 a 5): ",
-        n => Number.isInteger(n) && n >= 1 && n <= 5,
-        "Erro! Digite uma quantidade entre 1 e 5."
+    } else if (preco < 500) {
+        return "Incomum";
+
+    } else if (preco < 1000) {
+        return "Raro";
+
+    } else {
+        return "Épico";
+    }
+
+    }
+
+
+    function cadastrarItens() {
+
+    let quantidade;
+
+    do {
+
+        quantidade = Number(
+            prompt("Quantos itens você deseja cadastrar? (1 a 5)")
+        );
+
+        if (
+            !Number.isInteger(quantidade) ||
+            quantidade < 1 ||
+            quantidade > 5
+        ) {
+
+            alert("Erro! Digite uma quantidade entre 1 e 5.");
+
+        }
+
+    } while (
+        !Number.isInteger(quantidade) ||
+        quantidade < 1 ||
+        quantidade > 5
     );
 
-    if (quantidade === null) {
-        console.log("Cadastro cancelado.");
-        return;
-    }
 
     for (let i = 1; i <= quantidade; i++) {
+
         console.log(`\n===== CADASTRO ${i} DE ${quantidade} =====`);
 
         let nomeItem;
 
-        while (true) {
-            nomeItem = prompt(`Digite o nome do item ${i}: `);
+        do {
+
+            nomeItem = prompt(`Digite o nome do item ${i}:`);
 
             if (nomeItem === null) {
+
                 console.log("Cadastro cancelado.");
+
                 return;
+
             }
 
             nomeItem = nomeItem.toLowerCase().trim();
 
             if (nomeItem === "") {
-                console.log("O nome não pode ficar vazio.");
-                continue;
+
+                alert("O nome não pode ficar vazio.");
+
             }
 
-            if (nomeItem in itens) {
-                console.log(`O item "${nomeItem}" já existe no sistema.`);
-                continue;
+        } while (nomeItem === "");
+
+
+        if (nomeItem in itens) {
+
+            alert("Esse item já está cadastrado!");
+
+            console.log(`O item "${nomeItem}" já existe no sistema.`);
+
+            i--;
+
+            continue;
+
+        }
+
+
+        let preco;
+
+        do {
+
+            preco = Number(
+                prompt(`Digite o preço do item "${nomeItem}":`)
+            );
+
+            if (isNaN(preco) || preco <= 0) {
+
+                alert("Erro! O preço deve ser maior que zero.");
+
             }
 
-            break;
-        }
+        } while (isNaN(preco) || preco <= 0);
 
-        const preco = lerNumero(
-            `Digite o preço do item "${nomeItem}": `,
-            n => n > 0,
-            "Erro! O preço deve ser maior que zero."
+
+        let estoque;
+
+        do {
+
+            estoque = Number(
+                prompt(`Digite o estoque do item "${nomeItem}":`)
+            );
+
+            if (
+                !Number.isInteger(estoque) ||
+                estoque < 0
+            ) {
+
+                alert(
+                    "Erro! O estoque deve ser um número inteiro igual ou maior que zero."
+                );
+
+            }
+
+        } while (
+            !Number.isInteger(estoque) ||
+            estoque < 0
         );
-        if (preco === null) {
-            console.log("Cadastro cancelado.");
-            return;
-        }
 
-        const estoque = lerNumero(
-            `Digite o estoque do item "${nomeItem}": `,
-            n => Number.isInteger(n) && n >= 0,
-            "Erro! O estoque deve ser um número inteiro igual ou maior que zero."
-        );
-        if (estoque === null) {
-            console.log("Cadastro cancelado.");
-            return;
-        }
 
-        itens[nomeItem] = { preco, estoque };
+        itens[nomeItem] = {
+
+            preco: preco,
+            estoque: estoque
+
+        };
+
 
         console.log(`Item "${nomeItem}" cadastrado com sucesso!`);
+
     }
 
-    console.log("\nCadastro finalizado!");
-}
 
-// ===== CONSULTAR ITENS =====
+    alert("Cadastro finalizado!");
 
-function consultarItem() {
-    console.log("\n===== CATÁLOGO DE ITENS =====\n");
+    console.log("\n===== CADASTRO FINALIZADO =====");
 
-    const catalogo = Object.entries(itens);
+    }
 
-    catalogo.forEach(([nome, dados], indice) => {
-        const disponibilidade = dados.estoque > 0 ? "DISPONÍVEL" : "INDISPONÍVEL";
+      function consultarItem() {
 
-        console.log(`${indice + 1}. ${nome}`);
-        console.log(`   Disponibilidade: ${disponibilidade}`);
-        console.log(`   Preço: R$ ${dados.preco.toFixed(2)}`);
-        console.log(`   Estoque: ${dados.estoque} unidade(s)`);
-        console.log(`   Raridade: ${obterRaridade(dados.preco)}`);
-        console.log("   --------------------------------");
-    });
-}
+    let lista = "===== LISTA DE TODOS OS ITENS =====\n\n";
 
-// ===== COMPRAR ITEM =====
+    for (let nomeItem in itens) {
 
-function comprarItem() {
-    let nomeItem = prompt("Digite o nome do item que deseja comprar: ");
+        const preco = itens[nomeItem].preco;
+        const estoque = itens[nomeItem].estoque;
 
-    if (nomeItem === null) return;
+        let disponibilidade;
+
+        if (estoque > 0) {
+            disponibilidade = "DISPONÍVEL";
+        } else {
+            disponibilidade = "INDISPONÍVEL";
+        }
+
+        lista +=
+    `Item: ${nomeItem}
+    Disponibilidade: ${disponibilidade}
+    Preço: R$ ${preco.toFixed(2)}
+    Estoque: ${estoque} unidade(s)
+    Raridade: ${obterRaridade(preco)}
+
+    --------------------------------
+
+    `;  
+    }
+
+    console.log(lista);
+    alert(lista);
+    }
+    function comprarItem() {
+
+    let nomeItem = prompt(
+        "Digite o nome do item que deseja comprar:"
+    );
+
+    if (nomeItem === null) {
+
+        return;
+
+    }
 
     nomeItem = nomeItem.toLowerCase().trim();
 
+
+    // Verifica se o item existe
+
     if (!(nomeItem in itens)) {
-        console.log("Erro! Esse item não existe no sistema.");
+
+        alert("Erro! Esse item não existe no sistema.");
+
+        console.log("Item não encontrado.");
+
         return;
+
     }
+
+
+    // Verifica se existe estoque
 
     if (itens[nomeItem].estoque <= 0) {
-        console.log("Esse item está fora de estoque!");
+
+        alert("Esse item está fora de estoque!");
+
         return;
+
     }
 
-    console.log(`Estoque disponível de "${nomeItem}": ${itens[nomeItem].estoque}`);
 
-    const quantidade = lerNumero(
-        "Quantas unidades deseja comprar? ",
-        n => Number.isInteger(n) && n > 0,
-        "Erro! Digite uma quantidade inteira maior que zero."
+    // Solicita a quantidade
+
+    let quantidade;
+
+    do {
+
+        quantidade = Number(
+            prompt(
+                `Quantas unidades de "${nomeItem}" você deseja comprar?\n\n` +
+                `Estoque disponível: ${itens[nomeItem].estoque}`
+            )
+        );
+
+
+        if (
+            !Number.isInteger(quantidade) ||
+            quantidade <= 0
+        ) {
+
+            alert(
+                "Erro! Digite uma quantidade inteira maior que zero."
+            );
+
+        }
+
+    } while (
+        !Number.isInteger(quantidade) ||
+        quantidade <= 0
     );
-    if (quantidade === null) return;
+
+
+    // Verifica se há estoque suficiente
 
     if (quantidade > itens[nomeItem].estoque) {
-        console.log(`Estoque insuficiente! Apenas ${itens[nomeItem].estoque} unidade(s) disponível(is).`);
+
+        alert(
+            `Estoque insuficiente!\n\n` +
+            `Estoque disponível: ${itens[nomeItem].estoque} unidades.`
+        );
+
         return;
+
     }
+
+
+    // Calcula o valor total
 
     const precoUnitario = itens[nomeItem].preco;
+
     const valorTotal = precoUnitario * quantidade;
 
-    console.log(`Valor total da compra: R$ ${valorTotal.toFixed(2)}`);
 
-    const saldo = lerNumero(
-        "Digite o seu saldo disponível: ",
-        n => n >= 0,
-        "Erro! O saldo deve ser um número igual ou maior que zero."
-    );
-    if (saldo === null) return;
+    // Solicita o saldo da pessoa
+
+    let saldo;
+
+    do {
+
+        saldo = Number(
+            prompt(
+                `Valor total da compra: R$ ${valorTotal.toFixed(2)}\n\n` +
+                "Digite o seu saldo disponível:"
+            )
+        );
+
+
+        if (isNaN(saldo) || saldo < 0) {
+
+            alert(
+                "Erro! O saldo deve ser um número igual ou maior que zero."
+            );
+
+        }
+
+    } while (isNaN(saldo) || saldo < 0);
+
+
+    // Verifica se o saldo é suficiente
 
     if (saldo < valorTotal) {
-        console.log("\nCompra recusada! Saldo insuficiente.");
-        console.log(`Valor da compra: R$ ${valorTotal.toFixed(2)}`);
-        console.log(`Seu saldo: R$ ${saldo.toFixed(2)}`);
+
+        alert(
+            `Compra recusada!\n\n` +
+            `Valor da compra: R$ ${valorTotal.toFixed(2)}\n` +
+            `Seu saldo: R$ ${saldo.toFixed(2)}\n\n` +
+            `Saldo insuficiente.`
+        );
+
+        console.log("Compra recusada por falta de saldo.");
+
         return;
+
     }
+
+
+    // Diminui o estoque
 
     itens[nomeItem].estoque -= quantidade;
+
+
+    // Calcula o troco
+
     const saldoRestante = saldo - valorTotal;
 
-    console.log("\n== COMPRA REALIZADA ==");
-    console.log(`Item: ${nomeItem}`);
-    console.log(`Quantidade: ${quantidade} unidade(s)`);
-    console.log(`Preço unitário: R$ ${precoUnitario.toFixed(2)}`);
-    console.log(`Valor total: R$ ${valorTotal.toFixed(2)}`);
-    console.log(`Saldo inicial: R$ ${saldo.toFixed(2)}`);
-    console.log(`Saldo restante: R$ ${saldoRestante.toFixed(2)}`);
-    console.log(`Estoque restante: ${itens[nomeItem].estoque} unidade(s)`);
-}
 
-// ===== MENU PRINCIPAL =====
+    // Exibe o resultado
 
-const ACOES = {
-    "1": cadastrarItens,
-    "2": consultarItem,
-    "3": comprarItem
-};
+    const comprovante =
 
-function menuPrincipal() {
-    while (true) {
-        console.log("\n===== MENU PRINCIPAL =====\n");
-        console.log("1 - Cadastrar itens");
-        console.log("2 - Consultar item");
-        console.log("3 - Comprar item");
-        console.log("4 - Finalizar atividade");
+    `== COMPRA REALIZADA ==
 
-        let escolha = prompt("Opção: ");
+    Item: ${nomeItem}
 
-        if (escolha === null) {
-            console.log("Atividade finalizada!");
-            break;
-        }
+    Quantidade: ${quantidade} unidade(s)
 
-        escolha = escolha.trim();
+    Preço unitário: R$ ${precoUnitario.toFixed(2)}
 
-        if (escolha === "4") {
-            console.log("Atividade finalizada!");
-            break;
-        }
+    Valor total: R$ ${valorTotal.toFixed(2)}
 
-        const acao = ACOES[escolha];
+    Saldo inicial: R$ ${saldo.toFixed(2)}
 
-        if (!acao) {
-            console.log("Opção inválida! Digite 1, 2, 3 ou 4.");
-            continue;
-        }
+    Saldo restante: R$ ${saldoRestante.toFixed(2)}
 
-        acao();
+    Estoque restante: ${itens[nomeItem].estoque} unidade(s)`;
 
-        console.log("");
-        if (!perguntarSimNao("Deseja realizar outra operação? (S/N): ")) {
-            console.log("Atividade finalizada!");
-            break;
-        }
+
+    alert(comprovante);
+
+    console.log(comprovante);
+
     }
-}
 
-menuPrincipal();
+    let continuar = true;
+
+    while (continuar) {
+
+    console.log("\n===== MENU PRINCIPAL =====");
+
+    console.log("Digite 1 para cadastrar produtos.");
+
+    console.log("Digite 2 para consultar um item.");
+
+    console.log("Digite 3 para comprar itens.");
+
+    console.log("Digite 4 para finalizar a atividade.");
+
+
+    let escolha = prompt(
+
+        "===== MENU PRINCIPAL =====\n\n" +
+
+        "1 - Cadastrar itens\n" +
+
+        "2 - Consultar item\n" +
+
+        "3 - Comprar item\n" +
+
+        "4 - Finalizar atividade"
+
+    );
+
+
+    if (escolha === null) {
+
+        break;
+
+    }
+
+
+    escolha = escolha.trim();
+
+
+    if (escolha === "1") {
+
+        cadastrarItens();
+
+
+        let resposta = prompt(
+
+            "Deseja consultar algum item agora?\n" +
+
+            "Digite S para sim ou N para finalizar."
+
+        );
+
+
+        if (
+            resposta !== null &&
+            resposta.toLowerCase().trim() === "s"
+        ) {
+
+            consultarItem();
+
+        } else {
+
+            alert("Atividade finalizada!");
+
+            continuar = false;
+
+        }
+
+    }
+
+
+    else if (escolha === "2") {
+
+        consultarItem();
+
+
+        let resposta = prompt(
+
+            "Deseja consultar outro item?\n" +
+
+            "Digite S para continuar ou N para finalizar."
+
+        );
+
+
+        if (
+            resposta === null ||
+            resposta.toLowerCase().trim() !== "s"
+        ) {
+
+            alert("Atividade finalizada!");
+
+            continuar = false;
+
+        }
+
+    }
+
+
+    else if (escolha === "3") {
+
+        comprarItem();
+
+
+        let resposta = prompt(
+
+            "Deseja realizar outra operação?\n" +
+
+            "Digite S para continuar ou N para finalizar."
+
+        );
+
+
+        if (
+            resposta === null ||
+            resposta.toLowerCase().trim() !== "s"
+        ) {
+
+            alert("Atividade finalizada!");
+
+            continuar = false;
+
+        }
+
+    }
+
+
+    else if (escolha === "4") {
+
+        alert("Atividade finalizada!");
+
+        console.log("Sistema encerrado.");
+
+        continuar = false;
+
+    }
+
+
+    else {
+
+        alert("Opção inválida! Digite 1, 2, 3 ou 4.");
+
+    }
+
+    }
     </script>
 </body>
 </html>
